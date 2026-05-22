@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Início de Dia</title>
-
+    
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Google Identity Services and API Client -->
-    <script src="https://accounts.google.com/gsi/client" onload="gsiLoaded()" async defer></script>
-    <script src="https://apis.google.com/js/api.js"></script>
-
+    
     <style>
         :root {
-            /* Dark Theme Colors */
-            --bg-color: #0b0f19;
-            --surface-color: #161e31;
-            --surface-hover: #1e2943;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
-
-            /* Accent Colors */
+            /* Paleta de Cores Clara e Premium */
+            --bg-color: #f4f7f9;
+            --surface-color: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            /* Cores de Destaque */
+            --accent-lilac: #a855f7;
+            --accent-lilac-light: #f3e8ff;
             --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-emerald: #10b981;
+            --accent-blue-light: #dbeafe;
+            --accent-green: #10b981;
+            --accent-green-light: #d1fae5;
+            --accent-orange: #f59e0b;
+            --accent-orange-light: #fef3c7;
         }
 
         * {
@@ -43,297 +42,285 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
             padding: 2rem;
-            /* Subtle background glow effect */
-            background-image:
-                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.06), transparent 30%),
-                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.06), transparent 30%);
-            background-attachment: fixed;
+            /* Fundo sutil com gradiente suave */
+            background-image: radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.05), transparent 40%), 
+                              radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05), transparent 40%);
         }
 
-        .login-container {
+        .container {
+            width: 100%;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            text-align: center;
-            animation: fadeInDown 0.8s ease-out;
-            width: 100%;
+            gap: 2rem;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .login-container h1 {
-            font-size: 2.5rem;
+        /* Cabeçalho */
+        header {
             margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        .login-container p {
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            max-width: 400px;
+        .header-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
         }
 
         .btn-google {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background-color: #ffffff;
-            color: #1f2937;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 9999px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-google:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.2);
-        }
-
-        header {
-            width: 100%;
-            max-width: 1100px;
-            margin-bottom: 3rem;
-            margin-top: 2rem;
-            text-align: left;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        .greeting-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .date {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.03);
-            padding: 0.6rem 1.2rem;
-            border-radius: 9999px;
+            background-color: var(--surface-color);
+            color: var(--text-main);
             border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            font-size: 0.95rem;
         }
 
-        main {
-            width: 100%;
-            max-width: 1100px;
+        .btn-google:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .btn-logout {
+            background-color: #fee2e2;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none; /* Oculto inicialmente */
+            font-size: 0.95rem;
+        }
+
+        .btn-logout:hover {
+            background-color: #fecaca;
+        }
+
+        .greeting-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .greeting-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 400;
+        }
+
+        .greeting-subtitle strong {
+            color: var(--accent-lilac);
+            font-weight: 600;
+        }
+
+        /* Grid de Resumo (3 cards principais) */
+        .grid-summary {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
+        /* Grid de Extras (Clima, Motivação, Humor) */
+        .grid-extras {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Estilo Geral dos Cards */
         .card {
             background-color: var(--surface-color);
             border-radius: 20px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 1.8rem;
             border: 1px solid var(--border-color);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            min-height: 220px;
-            animation: fadeInUp 0.8s ease-out backwards;
         }
 
-        .card:nth-child(1) {
-            animation-delay: 0.1s;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border-color: #cbd5e1;
         }
 
-        .card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        /* Top colored bar for each card */
-        .card::before {
+        /* Detalhe visual na borda superior dos cards de resumo */
+        .summary-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 4px;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
         }
 
-        .card:hover {
-            transform: translateY(-6px);
-            background-color: var(--surface-hover);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card-emails::before {
-            background: linear-gradient(90deg, var(--accent-blue), #60a5fa);
-        }
-
-        .card-meetings::before {
-            background: linear-gradient(90deg, var(--accent-purple), #a78bfa);
-        }
-
-        .card-tasks::before {
-            background: linear-gradient(90deg, var(--accent-emerald), #34d399);
-        }
+        .card-emails::before { background-color: var(--accent-blue); }
+        .card-meetings::before { background-color: var(--accent-lilac); }
+        .card-tasks::before { background-color: var(--accent-green); }
 
         .card-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
         }
 
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .card-icon {
-            width: 44px;
-            height: 44px;
+        .icon-box {
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
+            font-size: 1.5rem;
         }
 
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+        .card-emails .icon-box { background-color: var(--accent-blue-light); color: var(--accent-blue); }
+        .card-meetings .icon-box { background-color: var(--accent-lilac-light); color: var(--accent-lilac); }
+        .card-tasks .icon-box { background-color: var(--accent-green-light); color: var(--accent-green); }
+        .weather-card .icon-box { background-color: var(--accent-orange-light); color: var(--accent-orange); }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
         }
 
         .card-value {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 700;
+            color: var(--text-main);
             line-height: 1;
-            letter-spacing: -0.03em;
         }
 
-        .card-desc {
-            font-size: 0.95rem;
+        /* Cards Extras Específicos */
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .weather-info .temperature {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .weather-desc {
             color: var(--text-muted);
-            font-weight: 400;
+            font-weight: 500;
         }
 
-        /* Specific styles per card */
-        .card-emails .card-value {
-            color: #60a5fa;
+        .motivation-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent-lilac-light) 0%, #ffffff 100%);
+            border-color: #e9d5ff;
         }
 
-        .card-emails .card-icon {
-            color: #60a5fa;
+        .quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+        
+        .quote-author {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--accent-lilac);
+            font-weight: 600;
         }
 
-        .card-meetings .card-value {
-            color: #a78bfa;
+        .mood-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
-        .card-meetings .card-icon {
-            color: #a78bfa;
+        .mood-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
         }
 
-        .card-tasks .card-value {
-            color: #34d399;
+        .emoticons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
         }
 
-        .card-tasks .card-icon {
-            color: #34d399;
+        .mood-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            font-size: 1.8rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Bottom Grid */
+        .mood-btn:hover {
+            transform: scale(1.15);
+            background-color: var(--surface-color);
+            border-color: var(--accent-lilac);
+            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .greeting-title { font-size: 2rem; }
+            .grid-summary, .grid-extras, .bottom-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Agenda / Lista de Eventos */
         .bottom-grid {
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 1.5rem;
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 1.5rem;
-            animation: fadeInUp 0.8s ease-out backwards;
-            animation-delay: 0.4s;
         }
 
-        .chart-card,
-        .agenda-card {
-            background-color: var(--surface-color);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .chart-header {
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .agenda-total {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-purple);
-            background: rgba(167, 139, 250, 0.1);
-            padding: 0.4rem 0.8rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(167, 139, 250, 0.2);
-        }
-
-        .chart-title {
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
-
-        /* Agenda Styles */
         .agenda-list {
             display: flex;
             flex-direction: column;
@@ -345,21 +332,23 @@
             align-items: center;
             gap: 1rem;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: var(--bg-color);
             border-radius: 12px;
-            transition: background 0.2s;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
         }
 
         .agenda-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(4px);
+            background-color: var(--accent-lilac-light);
+            border-color: #e9d5ff;
         }
 
         .agenda-time {
             font-size: 0.95rem;
-            color: var(--accent-purple);
-            font-weight: 600;
-            min-width: 50px;
+            color: var(--accent-lilac);
+            font-weight: 700;
+            min-width: 45px;
         }
 
         .agenda-details {
@@ -371,235 +360,165 @@
 
         .agenda-title {
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-main);
         }
 
         .agenda-duration {
             font-size: 0.85rem;
             color: var(--text-muted);
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .bottom-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .greeting-container {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.2rem;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .card {
-                padding: 1.5rem;
-                min-height: 200px;
-            }
-
-            .card-value {
-                font-size: 3rem;
-            }
+            font-weight: 500;
         }
     </style>
+
+    <!-- Google APIs -->
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-    <div id="login-view" class="login-container">
-        <h1>Bem-vindo!</h1>
-        <p>Faça login com sua conta do Google para ver seus emails e agenda de hoje.</p>
-        <button id="auth-btn" class="btn-google" style="display: none;">
-            <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                    fill="#4285F4" />
-                <path
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    fill="#34A853" />
-                <path
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                    fill="#FBBC05" />
-                <path
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                    fill="#EA4335" />
-            </svg>
-            Entrar com Google
-        </button>
-    </div>
 
-    <div id="dashboard-view" style="display: none; width: 100%; flex-direction: column; align-items: center;">
+    <div class="container">
+        <!-- Cabeçalho Dinâmico -->
         <header>
-            <div class="greeting-container">
-                <h1>Por onde começo hoje?</h1>
-                <div class="date" id="current-date">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
+            <div class="header-content">
+                <h1 class="greeting-title">Por onde começo hoje?</h1>
+                <p class="greeting-subtitle">
+                    <strong id="greetingText">Seja bem-vindo(a)!</strong> • <span id="currentDate">Carregando data...</span> • <span id="currentTime" style="font-weight: 600; color: var(--text-main);">--:--</span>
+                </p>
+            </div>
+            <div class="auth-buttons">
+                <button id="btn-login" class="btn-google" onclick="handleAuthClick()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                     </svg>
-                    <span>Sexta-feira, 15 de maio de 2026</span>
-                </div>
+                    Entrar com Google
+                </button>
+                <button id="btn-logout" class="btn-logout" onclick="handleSignoutClick()">Sair</button>
             </div>
         </header>
 
-        <main>
-            <!-- Card 1: Emails -->
-            <div class="card card-emails">
+        <!-- Grid 1: Métricas de Produtividade -->
+        <div class="grid-summary">
+            <div class="card summary-card card-emails">
                 <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-icon" style="font-size: 1.4rem;">
-                            📧
-                        </div>
-                        Emails não lidos
-                    </div>
+                    <div class="icon-box">📧</div>
+                    <span class="card-title">Emails não lidos</span>
                 </div>
-                <div class="card-content">
-                    <div class="card-value">14</div>
-                    <div class="card-desc">3 marcados como importantes</div>
-                </div>
+                <div class="card-value" id="emailCount">-</div>
+                <div id="emailEstimate" style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem; font-weight: 500;"></div>
             </div>
 
-            <!-- Card 2: Reuniões -->
-            <div class="card card-meetings">
+            <div class="card summary-card card-meetings">
                 <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-icon" style="font-size: 1.4rem;">
-                            🤝
-                        </div>
-                        Reuniões hoje
-                    </div>
+                    <div class="icon-box">🤝</div>
+                    <span class="card-title">Reuniões hoje</span>
                 </div>
-                <div class="card-content">
-                    <div class="card-value">3</div>
-                    <div class="card-desc">Próxima reunião às 10:30</div>
-                </div>
+                <div class="card-value" id="meetingsCount">-</div>
             </div>
 
-            <!-- Card 3: Tarefas -->
-            <div class="card card-tasks">
+            <div class="card summary-card card-tasks">
                 <div class="card-header">
-                    <div class="card-title">
-                        <div class="card-icon" style="font-size: 1.4rem;">
-                            ✅
-                        </div>
-                        Tarefas pendentes
-                    </div>
+                    <div class="icon-box">✅</div>
+                    <span class="card-title">Tarefas pendentes</span>
                 </div>
-                <div class="card-content">
-                    <div class="card-value">7</div>
-                    <div class="card-desc">2 vencem hoje</div>
+                <div class="card-value">-</div>
+            </div>
+        </div>
+
+        <!-- Grid 2: Bem-estar e Contexto -->
+        <div class="grid-extras">
+            <!-- Card de Clima -->
+            <div class="card weather-card">
+                <div class="card-header" style="margin-bottom: 0;">
+                    <div class="icon-box">📍</div>
+                    <span class="card-title">Clima no Rio de Janeiro</span>
+                </div>
+                <div class="weather-info">
+                    <span style="font-size: 3rem; line-height: 1;">☀️</span>
+                    <span class="temperature">28°C</span>
+                </div>
+                <p class="weather-desc">Ensolarado e limpo</p>
+            </div>
+
+            <!-- Card Motivacional -->
+            <div class="card motivation-card">
+                <div class="card-header" style="margin-bottom: 0.5rem;">
+                    <div class="icon-box" style="background-color: var(--accent-lilac-light); color: var(--accent-lilac);">💡</div>
+                    <span class="card-title">Para hoje</span>
+                </div>
+                <p class="quote">"O sucesso é a soma de pequenos esforços repetidos dia após dia."</p>
+                <span class="quote-author">— Robert Collier</span>
+            </div>
+
+            <!-- Card de Humor -->
+            <div class="card mood-card">
+                <div class="card-header" style="justify-content: center; margin-bottom: 1.5rem;">
+                    <div class="icon-box" style="background-color: #fef08a; color: #ca8a04;">🎭</div>
+                    <h3 class="mood-title" style="margin-bottom: 0;">Como está seu humor hoje?</h3>
+                </div>
+                <div class="emoticons">
+                    <button class="mood-btn" title="Muito Feliz">😄</button>
+                    <button class="mood-btn" title="De boa">🙂</button>
+                    <button class="mood-btn" title="Neutro">😐</button>
+                    <button class="mood-btn" title="Cansada">😫</button>
+                    <button class="mood-btn" title="Estressada">😡</button>
                 </div>
             </div>
-        </main>
-
-        <section class="bottom-grid">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <div class="card-icon" style="font-size: 1.4rem;">
-                            📊
-                        </div>
-                        Volume de emails na semana
-                    </div>
+        </div>
+        
+        <!-- Grid Inferior (Gráfico + Agenda) -->
+        <div class="bottom-grid">
+            <!-- Seção do Gráfico -->
+            <div class="card chart-card">
+                <div class="card-header" style="margin-bottom: 1rem;">
+                    <div class="icon-box" style="background-color: var(--accent-blue-light); color: var(--accent-blue);">📊</div>
+                    <span class="card-title">Volume de emails na semana</span>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container" style="position: relative; height: 280px; width: 100%;">
                     <canvas id="emailsChart"></canvas>
                 </div>
             </div>
 
-            <div class="agenda-card">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <div class="card-icon" style="font-size: 1.4rem;">
-                            📅
-                        </div>
-                        Agenda de hoje
-                    </div>
-                    <div class="agenda-total">3h30 em reuniões</div>
+            <!-- Seção da Agenda -->
+            <div class="card agenda-card">
+                <div class="card-header" style="margin-bottom: 1rem;">
+                    <div class="icon-box" style="background-color: var(--accent-green-light); color: var(--accent-green);">🗓️</div>
+                    <span class="card-title">Agenda de hoje</span>
                 </div>
-                <div class="agenda-list">
-                    <div class="agenda-item">
-                        <div class="agenda-time">09:30</div>
-                        <div class="agenda-details">
-                            <div class="agenda-title">Daily da equipe</div>
-                            <div class="agenda-duration">15 min</div>
-                        </div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-time">10:30</div>
-                        <div class="agenda-details">
-                            <div class="agenda-title">Revisão de design</div>
-                            <div class="agenda-duration">1 hora</div>
-                        </div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-time">14:00</div>
-                        <div class="agenda-details">
-                            <div class="agenda-title">Alinhamento com cliente</div>
-                            <div class="agenda-duration">45 min</div>
-                        </div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-time">16:30</div>
-                        <div class="agenda-details">
-                            <div class="agenda-title">Planning Sprint</div>
-                            <div class="agenda-duration">1.5 horas</div>
-                        </div>
+                
+                <div class="agenda-list" id="agendaList">
+                    <div class="agenda-item" style="justify-content: center; text-align: center; color: var(--text-muted); padding: 2rem 1rem;">
+                        Faça login para ver sua agenda de hoje.
                     </div>
                 </div>
             </div>
-        </section>
-    </div> <!-- End of dashboard-view -->
+        </div>
+    </div>
 
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('emailsChart').getContext('2d');
+        
+        // Gradiente para as barras
+        let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, '#3b82f6'); // accent-blue
+        gradient.addColorStop(1, '#93c5fd'); // accent-blue mais claro
 
-        // Dark theme configuration for Chart.js
-        Chart.defaults.color = '#94a3b8';
-        Chart.defaults.font.family = 'Outfit, sans-serif';
-
-        new Chart(ctx, {
+        window.emailsChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
                 datasets: [{
                     label: 'Emails',
-                    data: [12, 5, 8, 20, 3, 15, 9],
-                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                    hoverBackgroundColor: 'rgba(96, 165, 250, 1)',
+                    data: [0, 0, 0, 0, 0, 0, 0],
+                    backgroundColor: gradient,
                     borderRadius: 6,
-                    borderWidth: 0,
+                    borderSkipped: false,
                     barPercentage: 0.6
                 }]
             },
@@ -607,200 +526,277 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
-                        backgroundColor: '#1e2943',
-                        titleColor: '#f8fafc',
-                        bodyColor: '#94a3b8',
+                        backgroundColor: '#1e293b',
                         padding: 12,
-                        borderColor: 'rgba(255, 255, 255, 0.08)',
-                        borderWidth: 1,
-                        displayColors: false,
-                        cornerRadius: 8
+                        titleFont: { family: 'Outfit', size: 14 },
+                        bodyFont: { family: 'Outfit', size: 14 },
+                        cornerRadius: 8,
+                        displayColors: false
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.05)',
-                            drawBorder: false
+                            color: '#e2e8f0',
+                            drawBorder: false,
+                            borderDash: [5, 5]
                         },
-                        border: { display: false }
+                        ticks: {
+                            stepSize: 5,
+                            color: '#64748b',
+                            font: { family: 'Outfit' }
+                        }
                     },
                     x: {
-                        grid: {
-                            display: false,
-                            drawBorder: false
-                        },
-                        border: { display: false }
+                        grid: { display: false, drawBorder: false },
+                        ticks: {
+                            color: '#64748b',
+                            font: { family: 'Outfit' }
+                        }
                     }
                 }
             }
         });
 
-        // ============================================
-        // Google APIs Integration
-        // ============================================
 
-        const CLIENT_ID = '789951577561-rsv10607dfdn9msa2eu06dsq3n1usqca.apps.googleusercontent.com';
-        const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar.readonly';
+
+        // ==========================================
+        // Integração Google (GSI e GAPI)
+        // ==========================================
+        const CLIENT_ID = '789951577561-6ctutda8bdggb683fc08vohgf9m64omj.apps.googleusercontent.com';
         const DISCOVERY_DOCS = [
             'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest',
             'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'
         ];
+        const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar.readonly';
 
         let tokenClient;
         let gapiInited = false;
         let gisInited = false;
 
-        document.getElementById('auth-btn').onclick = handleAuthClick;
-
-        // Initialize GAPI client
-        gapi.load('client', initializeGapiClient);
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
+        }
 
         async function initializeGapiClient() {
             await gapi.client.init({
-                discoveryDocs: DISCOVERY_DOCS
+                discoveryDocs: DISCOVERY_DOCS,
             });
             gapiInited = true;
-            maybeEnableButtons();
         }
 
-        // Initialize GSI token client
-        function gsiLoaded() {
+        function gisLoaded() {
             tokenClient = google.accounts.oauth2.initTokenClient({
                 client_id: CLIENT_ID,
                 scope: SCOPES,
-                callback: async (resp) => {
-                    if (resp.error !== undefined) {
-                        throw (resp);
-                    }
-                    showDashboard();
-                    await fetchDashboardData();
-                },
+                callback: '', // definido em tempo de request
             });
             gisInited = true;
-            maybeEnableButtons();
-        }
-
-        function maybeEnableButtons() {
-            if (gapiInited && gisInited) {
-                document.getElementById('auth-btn').style.display = 'flex';
-            }
         }
 
         function handleAuthClick() {
-            tokenClient.requestAccessToken({ prompt: 'consent' });
+            tokenClient.callback = async (resp) => {
+                if (resp.error !== undefined) {
+                    throw (resp);
+                }
+                
+                // Login sucesso
+                document.getElementById('btn-login').style.display = 'none';
+                document.getElementById('btn-logout').style.display = 'block';
+                document.getElementById('greetingText').innerText = "Thais (Conectada)!";
+                
+                await fetchRealData();
+            };
+
+            if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken({prompt: 'consent'});
+            } else {
+                tokenClient.requestAccessToken({prompt: ''});
+            }
         }
 
-        function showDashboard() {
-            document.getElementById('login-view').style.display = 'none';
-            document.getElementById('dashboard-view').style.display = 'flex';
+        function handleSignoutClick() {
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                google.accounts.oauth2.revoke(token.access_token, () => {
+                    gapi.client.setToken('');
+                    document.getElementById('btn-login').style.display = 'flex';
+                    document.getElementById('btn-logout').style.display = 'none';
+                    document.getElementById('greetingText').innerText = "Seja bem-vindo(a)!";
+                    
+                    // Limpar os dados ao sair
+                    document.getElementById('emailCount').innerText = '-';
+                    document.getElementById('emailEstimate').innerText = '';
+                    document.getElementById('meetingsCount').innerText = '-';
+                    document.getElementById('agendaList').innerHTML = '<div class="agenda-item" style="justify-content: center; text-align: center; color: var(--text-muted); padding: 2rem 1rem;">Faça login para ver sua agenda de hoje.</div>';
+                    
+                    if (window.emailsChart) {
+                        window.emailsChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 0];
+                        window.emailsChart.update();
+                    }
+                });
+            }
         }
 
-        async function fetchDashboardData() {
+        function updateEmailEstimateDinamicamente(count) {
+            const estimativaMinutos = count * 1;
+            const emailEstimateEl = document.getElementById('emailEstimate');
+            
+            if (estimativaMinutos > 0) {
+                if (estimativaMinutos >= 60) {
+                    const horas = Math.floor(estimativaMinutos / 60);
+                    const minutos = estimativaMinutos % 60;
+                    emailEstimateEl.innerText = `⏱️ ~${horas}h${minutos > 0 ? ' ' + minutos + 'm' : ''} de leitura`;
+                } else {
+                    emailEstimateEl.innerText = `⏱️ ~${estimativaMinutos} min de leitura`;
+                }
+            } else {
+                emailEstimateEl.innerText = `⏱️ Tudo lido!`;
+            }
+        }
+
+        async function fetchRealData() {
             try {
-                // 1. Fetch unread emails
+                // 1. Buscar Emails não lidos da Caixa de Entrada
                 const gmailResponse = await gapi.client.gmail.users.messages.list({
                     'userId': 'me',
                     'q': 'is:unread in:inbox'
                 });
-                const unreadCount = gmailResponse.result.resultSizeEstimate || (gmailResponse.result.messages ? gmailResponse.result.messages.length : 0);
+                
+                const messages = gmailResponse.result.messages || [];
+                const unreadCount = messages.length;
+                
+                document.getElementById('emailCount').innerText = unreadCount;
+                updateEmailEstimateDinamicamente(unreadCount);
 
-                document.querySelector('.card-emails .card-value').innerText = unreadCount;
-                document.querySelector('.card-emails .card-desc').innerText = "Na sua caixa de entrada";
-
-                // 2. Fetch today's calendar events
+                // 2. Buscar Reuniões de hoje
                 const now = new Date();
-                const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
-                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).toISOString();
+                const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
 
                 const calendarResponse = await gapi.client.calendar.events.list({
                     'calendarId': 'primary',
-                    'timeMin': startOfDay,
-                    'timeMax': endOfDay,
+                    'timeMin': startOfDay.toISOString(),
+                    'timeMax': endOfDay.toISOString(),
                     'showDeleted': false,
                     'singleEvents': true,
                     'orderBy': 'startTime'
                 });
+                
+                const events = calendarResponse.result.items || [];
+                document.getElementById('meetingsCount').innerText = events.length;
 
-                const events = calendarResponse.result.items;
-                updateMeetingsUI(events);
-
-            } catch (err) {
-                console.error("Error fetching data: ", err);
-                alert("Erro ao buscar os dados. Veja o console para detalhes.");
-            }
-        }
-
-        function formatTime(dateObj) {
-            return dateObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function getDurationInMinutes(start, end) {
-            return Math.round((end - start) / 60000);
-        }
-
-        function formatDuration(minutes) {
-            if (minutes < 60) return `${minutes} min`;
-            const h = Math.floor(minutes / 60);
-            const m = minutes % 60;
-            if (m === 0) return `${h} hora${h > 1 ? 's' : ''}`;
-            return `${h}h${m.toString().padStart(2, '0')}`;
-        }
-
-        function updateMeetingsUI(events) {
-            // Filter events
-            const meetings = events.filter(e => e.start.dateTime && e.end.dateTime && e.status !== 'declined');
-
-            // Update Meetings Card
-            document.querySelector('.card-meetings .card-value').innerText = meetings.length;
-
-            let totalMinutes = 0;
-            let nextMeetingText = "Sem reuniões agendadas";
-
-            const agendaListElement = document.querySelector('.agenda-list');
-            agendaListElement.innerHTML = ''; // Clear fake events
-
-            if (meetings.length > 0) {
-                const now = new Date();
-                const nextMeeting = meetings.find(e => new Date(e.start.dateTime) > now);
-                if (nextMeeting) {
-                    nextMeetingText = `Próxima às ${formatTime(new Date(nextMeeting.start.dateTime))}`;
+                // 3. Atualizar a lista da agenda visualmente
+                const agendaList = document.getElementById('agendaList');
+                agendaList.innerHTML = ''; // Limpar antigos
+                
+                if (events.length === 0) {
+                    agendaList.innerHTML = '<div class="agenda-item"><div class="agenda-details"><span class="agenda-title">Nenhuma reunião hoje 🎉</span></div></div>';
                 } else {
-                    nextMeetingText = "Todas reuniões concluídas";
+                    events.forEach(event => {
+                        const start = event.start.dateTime || event.start.date;
+                        const startDate = new Date(start);
+                        const timeString = startDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        
+                        let durationText = "O dia todo";
+                        if (event.start.dateTime && event.end.dateTime) {
+                            const diffMs = new Date(event.end.dateTime) - new Date(event.start.dateTime);
+                            const diffMins = Math.round(diffMs / 60000);
+                            if (diffMins >= 60) {
+                                const h = Math.floor(diffMins / 60);
+                                const m = diffMins % 60;
+                                durationText = `${h}h${m > 0 ? ' ' + m + 'm' : ''}`;
+                            } else {
+                                durationText = `${diffMins} min`;
+                            }
+                        }
+
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'agenda-item';
+                        itemDiv.innerHTML = `
+                            <div class="agenda-time" style="min-width: 50px;">${timeString !== '00:00' ? timeString : 'All'}</div>
+                            <div class="agenda-details">
+                                <span class="agenda-title">${event.summary || 'Sem título'}</span>
+                                <span class="agenda-duration">${durationText}</span>
+                            </div>
+                        `;
+                        agendaList.appendChild(itemDiv);
+                    });
                 }
 
-                // Add real events to agenda list
-                meetings.forEach(event => {
-                    const start = new Date(event.start.dateTime);
-                    const end = new Date(event.end.dateTime);
-                    const durationMins = getDurationInMinutes(start, end);
-                    totalMinutes += durationMins;
+                // 4. Buscar Volume de Emails na Semana (últimos 7 dias)
+                const todayChart = new Date();
+                const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+                const labels = [];
+                const dataCounts = [];
+                const promises = [];
 
-                    const itemHtml = `
-                        <div class="agenda-item">
-                            <div class="agenda-time">${formatTime(start)}</div>
-                            <div class="agenda-details">
-                                <div class="agenda-title">${event.summary || '(Sem título)'}</div>
-                                <div class="agenda-duration">${formatDuration(durationMins)}</div>
-                            </div>
-                        </div>
-                    `;
-                    agendaListElement.insertAdjacentHTML('beforeend', itemHtml);
+                for (let i = 6; i >= 0; i--) {
+                    const targetDate = new Date();
+                    targetDate.setDate(todayChart.getDate() - i);
+                    
+                    labels.push(daysOfWeek[targetDate.getDay()]);
+
+                    const y = targetDate.getFullYear();
+                    const m = String(targetDate.getMonth() + 1).padStart(2, '0');
+                    const d = String(targetDate.getDate()).padStart(2, '0');
+                    
+                    const nextDate = new Date(targetDate);
+                    nextDate.setDate(targetDate.getDate() + 1);
+                    const ny = nextDate.getFullYear();
+                    const nm = String(nextDate.getMonth() + 1).padStart(2, '0');
+                    const nd = String(nextDate.getDate()).padStart(2, '0');
+
+                    const query = `after:${y}/${m}/${d} before:${ny}/${nm}/${nd}`;
+                    promises.push(gapi.client.gmail.users.messages.list({
+                        'userId': 'me',
+                        'q': query
+                    }));
+                }
+
+                const results = await Promise.all(promises);
+                results.forEach(res => {
+                    const msgs = res.result.messages || [];
+                    dataCounts.push(msgs.length);
                 });
-            } else {
-                agendaListElement.innerHTML = '<div class="agenda-duration" style="padding: 1rem; text-align: center;">Nenhum evento hoje</div>';
-            }
 
-            document.querySelector('.card-meetings .card-desc').innerText = nextMeetingText;
-            document.querySelector('.agenda-total').innerText = `${formatDuration(totalMinutes)} em reuniões`;
+                if (window.emailsChart) {
+                    window.emailsChart.data.labels = labels;
+                    window.emailsChart.data.datasets[0].data = dataCounts;
+                    window.emailsChart.update();
+                }
+
+            } catch (err) {
+                console.error("Erro ao buscar dados reais: ", err);
+                alert("Erro ao buscar dados do Google. Verifique o console.");
+            }
         }
 
+        // ==========================================
+        // Relógio e Data Dinâmica
+        // ==========================================
+        function updateDateTime() {
+            const now = new Date();
+            
+            const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let dateStr = now.toLocaleDateString('pt-BR', optionsDate);
+            dateStr = dateStr.charAt(0).toUpperCase() + dateStr.slice(1); // Capitalizar
+            
+            const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            
+            const dateEl = document.getElementById('currentDate');
+            const timeEl = document.getElementById('currentTime');
+            
+            if (dateEl) dateEl.innerText = dateStr;
+            if (timeEl) timeEl.innerText = timeStr;
+        }
+
+        // Iniciar o relógio imediatamente e atualizar a cada 1 segundo
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
     </script>
 </body>
-
 </html>
