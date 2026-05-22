@@ -571,7 +571,7 @@
             'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest',
             'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'
         ];
-        const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar.readonly';
+        const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/userinfo.profile';
 
         let tokenClient;
         let gapiInited = false;
@@ -606,7 +606,7 @@
                 // Login sucesso
                 document.getElementById('btn-login').style.display = 'none';
                 document.getElementById('btn-logout').style.display = 'block';
-                document.getElementById('greetingText').innerText = "Thais (Conectada)!";
+                document.getElementById('greetingText').innerText = "Carregando perfil...";
                 
                 await fetchRealData();
             };
@@ -660,6 +660,24 @@
 
         async function fetchRealData() {
             try {
+                // 0. Buscar Perfil do Usuário
+                try {
+                    const token = gapi.client.getToken().access_token;
+                    const userResponse = await fetch('https://www.googleapis.com/oauth2/v1/userinfo?alt=json', {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    if (userResponse.ok) {
+                        const userInfo = await userResponse.json();
+                        const firstName = userInfo.given_name || userInfo.name || 'Usuário';
+                        document.getElementById('greetingText').innerText = `${firstName} (Conectado)!`;
+                    } else {
+                        document.getElementById('greetingText').innerText = `Conectado!`;
+                    }
+                } catch(e) {
+                    document.getElementById('greetingText').innerText = `Conectado!`;
+                    console.error("Erro ao buscar perfil", e);
+                }
+
                 // 1. Buscar Emails não lidos da Caixa de Entrada
                 const gmailResponse = await gapi.client.gmail.users.messages.list({
                     'userId': 'me',
