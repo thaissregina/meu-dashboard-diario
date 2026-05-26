@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Início de Dia</title>
-    
+
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             /* Paleta de Cores Clara e Premium */
@@ -18,7 +19,7 @@
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
-            
+
             /* Cores de Destaque */
             --accent-lilac: #a855f7;
             --accent-lilac-light: #f3e8ff;
@@ -45,8 +46,8 @@
             justify-content: center;
             padding: 2rem;
             /* Fundo sutil com gradiente suave */
-            background-image: radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.05), transparent 40%), 
-                              radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05), transparent 40%);
+            background-image: radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.05), transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05), transparent 40%);
         }
 
         .container {
@@ -88,7 +89,7 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
             font-size: 0.95rem;
         }
 
@@ -105,7 +106,8 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            display: none; /* Oculto inicialmente */
+            display: none;
+            /* Oculto inicialmente */
             font-size: 0.95rem;
         }
 
@@ -177,9 +179,17 @@
             height: 4px;
         }
 
-        .card-emails::before { background-color: var(--accent-blue); }
-        .card-meetings::before { background-color: var(--accent-lilac); }
-        .card-tasks::before { background-color: var(--accent-green); }
+        .card-emails::before {
+            background-color: var(--accent-blue);
+        }
+
+        .card-meetings::before {
+            background-color: var(--accent-lilac);
+        }
+
+        .card-tasks::before {
+            background-color: var(--accent-green);
+        }
 
         .card-header {
             display: flex;
@@ -198,10 +208,25 @@
             font-size: 1.5rem;
         }
 
-        .card-emails .icon-box { background-color: var(--accent-blue-light); color: var(--accent-blue); }
-        .card-meetings .icon-box { background-color: var(--accent-lilac-light); color: var(--accent-lilac); }
-        .card-tasks .icon-box { background-color: var(--accent-green-light); color: var(--accent-green); }
-        .weather-card .icon-box { background-color: var(--accent-orange-light); color: var(--accent-orange); }
+        .card-emails .icon-box {
+            background-color: var(--accent-blue-light);
+            color: var(--accent-blue);
+        }
+
+        .card-meetings .icon-box {
+            background-color: var(--accent-lilac-light);
+            color: var(--accent-lilac);
+        }
+
+        .card-tasks .icon-box {
+            background-color: var(--accent-green-light);
+            color: var(--accent-green);
+        }
+
+        .weather-card .icon-box {
+            background-color: var(--accent-orange-light);
+            color: var(--accent-orange);
+        }
 
         .card-title {
             font-size: 1.1rem;
@@ -223,7 +248,7 @@
             gap: 1rem;
             margin-top: 1rem;
         }
-        
+
         .weather-info .temperature {
             font-size: 2.5rem;
             font-weight: 700;
@@ -251,7 +276,7 @@
             line-height: 1.6;
             margin-top: 0.5rem;
         }
-        
+
         .quote-author {
             margin-top: 1rem;
             font-size: 0.9rem;
@@ -303,15 +328,32 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            body { padding: 1rem; }
-            .greeting-title { font-size: 2rem; }
-            .grid-summary, .grid-extras, .bottom-grid { grid-template-columns: 1fr; }
+            body {
+                padding: 1rem;
+            }
+
+            .greeting-title {
+                font-size: 2rem;
+            }
+
+            .grid-summary,
+            .grid-extras,
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Agenda / Lista de Eventos */
@@ -369,7 +411,123 @@
             color: var(--text-muted);
             font-weight: 500;
         }
+
+        /* --- TELA DE LOGIN --- */
+            .login-screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                transition: opacity 0.5s ease, visibility 0.5s ease;
+            }
+
+            .login-screen.hidden {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .login-card {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 3rem;
+                border-radius: 24px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                max-width: 450px;
+                width: 90%;
+                animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            @keyframes popIn {
+                from {
+                    transform: scale(0.9);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            .login-emoji {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                display: inline-block;
+                animation: float 3s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0% {
+                    transform: translateY(0px);
+                }
+
+                50% {
+                    transform: translateY(-10px);
+                }
+
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+
+            .login-card h2 {
+                font-size: 2rem;
+                color: var(--text-main);
+                margin-bottom: 0.5rem;
+            }
+
+            .login-card p {
+                color: var(--text-muted);
+                margin-bottom: 2rem;
+                font-size: 1.1rem;
+            }
+
+            .btn-auth-large {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 12px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                transition: transform 0.2s, box-shadow 0.2s;
+                border: 2px solid transparent;
+            }
+
+            .btn-auth-large:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-large-google {
+                background-color: white;
+                color: var(--text-main);
+                border-color: #e2e8f0;
+            }
+
+            .btn-large-microsoft {
+                background-color: #00a4ef;
+                color: white;
+            }
+
+            /* Ocultar container principal inicialmente */
+            #main-dashboard {
+                display: none;
+            }
     </style>
+
+    <!-- Microsoft MSAL -->
+    <script src="https://alcdn.msauth.net/browser/2.35.0/js/msal-browser.min.js"></script>
 
     <!-- Google APIs -->
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
@@ -378,28 +536,60 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-    <div class="container">
+    <!-- Tela de Login Inicial -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <span class="login-emoji">👋</span>
+            <h2>Bem-vindo ao seu Dia!</h2>
+            <p>Escolha como deseja se conectar ao seu dashboard de produtividade.</p>
+
+            <button class="btn-auth-large btn-large-google" onclick="handleAuthClick()">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        fill="#4285F4" />
+                    <path
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        fill="#34A853" />
+                    <path
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                        fill="#FBBC05" />
+                    <path
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                        fill="#EA4335" />
+                </svg>
+                Entrar com Google
+            </button>
+
+            <button class="btn-auth-large btn-large-microsoft" onclick="handleMicrosoftLogin()">
+                <svg width="24" height="24" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="9" height="9" fill="#f25022" />
+                    <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
+                    <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
+                    <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
+                </svg>
+                Entrar com Microsoft
+            </button>
+        </div>
+    </div>
+
+    <div id="main-dashboard" class="container">
         <!-- Cabeçalho Dinâmico -->
         <header>
             <div class="header-content">
                 <h1 class="greeting-title">Por onde começo hoje?</h1>
                 <p class="greeting-subtitle">
-                    <strong id="greetingText">Seja bem-vindo(a)!</strong> • <span id="currentDate">Carregando data...</span> • <span id="currentTime" style="font-weight: 600; color: var(--text-main);">--:--</span>
+                    <strong id="greetingText">Seja bem-vindo(a)!</strong> • <span id="currentDate">Carregando
+                        data...</span> • <span id="currentTime"
+                        style="font-weight: 600; color: var(--text-main);">--:--</span>
                 </p>
             </div>
             <div class="auth-buttons">
-                <button id="btn-login" class="btn-google" onclick="handleAuthClick()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                    Entrar com Google
-                </button>
-                <button id="btn-logout" class="btn-logout" onclick="handleSignoutClick()">Sair</button>
+                <button id="btn-logout" class="btn-logout" onclick="handleSignoutClick()" style="display: block;">Sair
+                    do Dashboard</button>
             </div>
         </header>
 
@@ -411,7 +601,8 @@
                     <span class="card-title">Emails não lidos</span>
                 </div>
                 <div class="card-value" id="emailCount">-</div>
-                <div id="emailEstimate" style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem; font-weight: 500;"></div>
+                <div id="emailEstimate"
+                    style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem; font-weight: 500;"></div>
             </div>
 
             <div class="card summary-card card-meetings">
@@ -449,7 +640,8 @@
             <!-- Card Motivacional -->
             <div class="card motivation-card">
                 <div class="card-header" style="margin-bottom: 0.5rem;">
-                    <div class="icon-box" style="background-color: var(--accent-lilac-light); color: var(--accent-lilac);">💡</div>
+                    <div class="icon-box"
+                        style="background-color: var(--accent-lilac-light); color: var(--accent-lilac);">💡</div>
                     <span class="card-title">Para hoje</span>
                 </div>
                 <p class="quote">"O sucesso é a soma de pequenos esforços repetidos dia após dia."</p>
@@ -471,13 +663,14 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Grid Inferior (Gráfico + Agenda) -->
         <div class="bottom-grid">
             <!-- Seção do Gráfico -->
             <div class="card chart-card">
                 <div class="card-header" style="margin-bottom: 1rem;">
-                    <div class="icon-box" style="background-color: var(--accent-blue-light); color: var(--accent-blue);">📊</div>
+                    <div class="icon-box"
+                        style="background-color: var(--accent-blue-light); color: var(--accent-blue);">📊</div>
                     <span class="card-title">Volume de emails na semana</span>
                 </div>
                 <div class="chart-container" style="position: relative; height: 280px; width: 100%;">
@@ -488,12 +681,14 @@
             <!-- Seção da Agenda -->
             <div class="card agenda-card">
                 <div class="card-header" style="margin-bottom: 1rem;">
-                    <div class="icon-box" style="background-color: var(--accent-green-light); color: var(--accent-green);">🗓️</div>
+                    <div class="icon-box"
+                        style="background-color: var(--accent-green-light); color: var(--accent-green);">🗓️</div>
                     <span class="card-title">Agenda de hoje</span>
                 </div>
-                
+
                 <div class="agenda-list" id="agendaList">
-                    <div class="agenda-item" style="justify-content: center; text-align: center; color: var(--text-muted); padding: 2rem 1rem;">
+                    <div class="agenda-item"
+                        style="justify-content: center; text-align: center; color: var(--text-muted); padding: 2rem 1rem;">
                         Faça login para ver sua agenda de hoje.
                     </div>
                 </div>
@@ -503,7 +698,7 @@
 
     <script>
         const ctx = document.getElementById('emailsChart').getContext('2d');
-        
+
         // Gradiente para as barras
         let gradient = ctx.createLinearGradient(0, 0, 0, 300);
         gradient.addColorStop(0, '#3b82f6'); // accent-blue
@@ -564,6 +759,38 @@
 
 
         // ==========================================
+        // Controle de Telas e Estado
+        // ==========================================
+        let currentProvider = 'none'; // 'google' ou 'microsoft'
+
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('main-dashboard').style.display = 'flex';
+            }, 500);
+        }
+
+        function showLoginScreen() {
+            document.getElementById('main-dashboard').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loginScreen').classList.remove('hidden');
+            }, 10);
+
+            // Limpar os dados ao sair
+            document.getElementById('emailCount').innerText = '-';
+            document.getElementById('emailEstimate').innerText = '';
+            document.getElementById('meetingsCount').innerText = '-';
+            document.getElementById('agendaList').innerHTML = '<div class="agenda-item" style="justify-content: center; text-align: center; color: var(--text-muted); padding: 2rem 1rem;">Faça login para ver sua agenda de hoje.</div>';
+
+            if (window.emailsChart) {
+                window.emailsChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 0];
+                window.emailsChart.update();
+            }
+        }
+
+        // ==========================================
         // Integração Google (GSI e GAPI)
         // ==========================================
         const CLIENT_ID = '789951577561-6ctutda8bdggb683fc08vohgf9m64omj.apps.googleusercontent.com';
@@ -602,49 +829,57 @@
                 if (resp.error !== undefined) {
                     throw (resp);
                 }
-                
+
                 // Login sucesso
-                document.getElementById('btn-login').style.display = 'none';
-                document.getElementById('btn-logout').style.display = 'block';
+                currentProvider = 'google';
                 document.getElementById('greetingText').innerText = "Carregando perfil...";
-                
+                showDashboard();
+
                 await fetchRealData();
             };
 
             if (gapi.client.getToken() === null) {
-                tokenClient.requestAccessToken({prompt: 'consent'});
+                tokenClient.requestAccessToken({ prompt: 'consent' });
             } else {
-                tokenClient.requestAccessToken({prompt: ''});
+                tokenClient.requestAccessToken({ prompt: '' });
             }
         }
 
         function handleSignoutClick() {
-            const token = gapi.client.getToken();
-            if (token !== null) {
-                google.accounts.oauth2.revoke(token.access_token, () => {
-                    gapi.client.setToken('');
-                    document.getElementById('btn-login').style.display = 'flex';
-                    document.getElementById('btn-logout').style.display = 'none';
-                    document.getElementById('greetingText').innerText = "Seja bem-vindo(a)!";
-                    
-                    // Limpar os dados ao sair
-                    document.getElementById('emailCount').innerText = '-';
-                    document.getElementById('emailEstimate').innerText = '';
-                    document.getElementById('meetingsCount').innerText = '-';
-                    document.getElementById('agendaList').innerHTML = '<div class="agenda-item" style="justify-content: center; text-align: center; color: var(--text-muted); padding: 2rem 1rem;">Faça login para ver sua agenda de hoje.</div>';
-                    
-                    if (window.emailsChart) {
-                        window.emailsChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 0];
-                        window.emailsChart.update();
-                    }
-                });
+            if (currentProvider === 'google') {
+                const token = gapi.client.getToken();
+                if (token !== null) {
+                    google.accounts.oauth2.revoke(token.access_token, () => {
+                        gapi.client.setToken('');
+                        currentProvider = 'none';
+                        document.getElementById('greetingText').innerText = "Seja bem-vindo(a)!";
+                        showLoginScreen();
+                    });
+                }
+            } else if (currentProvider === 'microsoft') {
+                const accounts = msalInstance.getAllAccounts();
+                if (accounts.length > 0) {
+                    const logoutRequest = {
+                        account: accounts[0]
+                    };
+                    msalInstance.logoutPopup(logoutRequest).then(() => {
+                        currentProvider = 'none';
+                        document.getElementById('greetingText').innerText = "Seja bem-vindo(a)!";
+                        showLoginScreen();
+                    }).catch(e => {
+                        console.error("Erro no logout Microsoft", e);
+                    });
+                } else {
+                    currentProvider = 'none';
+                    showLoginScreen();
+                }
             }
         }
 
         function updateEmailEstimateDinamicamente(count) {
             const estimativaMinutos = count * 1;
             const emailEstimateEl = document.getElementById('emailEstimate');
-            
+
             if (estimativaMinutos > 0) {
                 if (estimativaMinutos >= 60) {
                     const horas = Math.floor(estimativaMinutos / 60);
@@ -673,7 +908,7 @@
                     } else {
                         document.getElementById('greetingText').innerText = `Conectado!`;
                     }
-                } catch(e) {
+                } catch (e) {
                     document.getElementById('greetingText').innerText = `Conectado!`;
                     console.error("Erro ao buscar perfil", e);
                 }
@@ -683,10 +918,10 @@
                     'userId': 'me',
                     'q': 'is:unread in:inbox'
                 });
-                
+
                 const messages = gmailResponse.result.messages || [];
                 const unreadCount = messages.length;
-                
+
                 document.getElementById('emailCount').innerText = unreadCount;
                 updateEmailEstimateDinamicamente(unreadCount);
 
@@ -703,22 +938,22 @@
                     'singleEvents': true,
                     'orderBy': 'startTime'
                 });
-                
+
                 const events = calendarResponse.result.items || [];
                 document.getElementById('meetingsCount').innerText = events.length;
 
                 // 3. Atualizar a lista da agenda visualmente
                 const agendaList = document.getElementById('agendaList');
                 agendaList.innerHTML = ''; // Limpar antigos
-                
+
                 if (events.length === 0) {
                     agendaList.innerHTML = '<div class="agenda-item"><div class="agenda-details"><span class="agenda-title">Nenhuma reunião hoje 🎉</span></div></div>';
                 } else {
                     events.forEach(event => {
                         const start = event.start.dateTime || event.start.date;
                         const startDate = new Date(start);
-                        const timeString = startDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                        
+                        const timeString = startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
                         let durationText = "O dia todo";
                         if (event.start.dateTime && event.end.dateTime) {
                             const diffMs = new Date(event.end.dateTime) - new Date(event.start.dateTime);
@@ -755,13 +990,13 @@
                 for (let i = 6; i >= 0; i--) {
                     const targetDate = new Date();
                     targetDate.setDate(todayChart.getDate() - i);
-                    
+
                     labels.push(daysOfWeek[targetDate.getDay()]);
 
                     const y = targetDate.getFullYear();
                     const m = String(targetDate.getMonth() + 1).padStart(2, '0');
                     const d = String(targetDate.getDate()).padStart(2, '0');
-                    
+
                     const nextDate = new Date(targetDate);
                     nextDate.setDate(targetDate.getDate() + 1);
                     const ny = nextDate.getFullYear();
@@ -794,6 +1029,160 @@
         }
 
         // ==========================================
+        // Integração Microsoft (MSAL e Graph API)
+        // ==========================================
+        const msalConfig = {
+            auth: {
+                clientId: 'c8a88e38-de20-492e-bdd1-ec18feff97fd',
+                redirectUri: window.location.href.split('?')[0].split('#')[0] // Garante que a URL base seja usada
+            }
+        };
+
+        const msalInstance = new window.msal.PublicClientApplication(msalConfig);
+
+        const loginRequest = {
+            scopes: ["User.Read", "Mail.Read", "Calendars.Read"]
+        };
+
+        async function handleMicrosoftLogin() {
+            try {
+                const loginResponse = await msalInstance.loginPopup(loginRequest);
+
+                if (loginResponse !== null) {
+                    currentProvider = 'microsoft';
+                    document.getElementById('greetingText').innerText = "Carregando perfil...";
+                    showDashboard();
+
+                    msalInstance.setActiveAccount(loginResponse.account);
+                    await fetchMicrosoftData(loginResponse.accessToken);
+                }
+            } catch (error) {
+                console.error("Erro no login Microsoft", error);
+                alert("Erro ao fazer login com a Microsoft: " + error.message);
+            }
+        }
+
+        async function callGraphAPI(endpoint, token) {
+            const headers = new Headers();
+            const bearer = `Bearer ${token}`;
+            headers.append("Authorization", bearer);
+
+            const options = {
+                method: "GET",
+                headers: headers
+            };
+
+            const response = await fetch(`https://graph.microsoft.com/v1.0${endpoint}`, options);
+            return response.json();
+        }
+
+        async function fetchMicrosoftData(accessToken) {
+            try {
+                // 0. Buscar Perfil do Usuário
+                try {
+                    const profile = await callGraphAPI("/me", accessToken);
+                    const firstName = profile.givenName || profile.displayName || 'Usuário';
+                    document.getElementById('greetingText').innerText = `${firstName} (Conectado)!`;
+                } catch (e) {
+                    document.getElementById('greetingText').innerText = `Conectado!`;
+                    console.error("Erro ao buscar perfil MS", e);
+                }
+
+                // 1. Buscar Emails não lidos
+                const mailResponse = await callGraphAPI("/me/mailFolders/inbox/messages?$filter=isRead eq false&$count=true", accessToken);
+                const unreadCount = mailResponse['@odata.count'] || (mailResponse.value ? mailResponse.value.length : 0);
+
+                document.getElementById('emailCount').innerText = unreadCount;
+                updateEmailEstimateDinamicamente(unreadCount);
+
+                // 2. Buscar Reuniões de hoje
+                const now = new Date();
+                const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+
+                const calendarResponse = await callGraphAPI(`/me/calendarView?startDateTime=${startOfDay.toISOString()}&endDateTime=${endOfDay.toISOString()}&$orderby=start/dateTime`, accessToken);
+                const events = calendarResponse.value || [];
+
+                document.getElementById('meetingsCount').innerText = events.length;
+
+                // 3. Atualizar a lista da agenda visualmente
+                const agendaList = document.getElementById('agendaList');
+                agendaList.innerHTML = '';
+
+                if (events.length === 0) {
+                    agendaList.innerHTML = '<div class="agenda-item"><div class="agenda-details"><span class="agenda-title">Nenhuma reunião hoje 🎉</span></div></div>';
+                } else {
+                    events.forEach(event => {
+                        const start = event.start.dateTime;
+                        const end = event.end.dateTime;
+
+                        const startDate = new Date(start + 'Z');
+                        const timeString = event.isAllDay ? 'All' : startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        let durationText = "O dia todo";
+                        if (!event.isAllDay && start && end) {
+                            const diffMs = new Date(end + 'Z') - new Date(start + 'Z');
+                            const diffMins = Math.round(diffMs / 60000);
+                            if (diffMins >= 60) {
+                                const h = Math.floor(diffMins / 60);
+                                const m = diffMins % 60;
+                                durationText = `${h}h${m > 0 ? ' ' + m + 'm' : ''}`;
+                            } else {
+                                durationText = `${diffMins} min`;
+                            }
+                        }
+
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'agenda-item';
+                        itemDiv.innerHTML = `
+                            <div class="agenda-time" style="min-width: 50px;">${timeString}</div>
+                            <div class="agenda-details">
+                                <span class="agenda-title">${event.subject || 'Sem título'}</span>
+                                <span class="agenda-duration">${durationText}</span>
+                            </div>
+                        `;
+                        agendaList.appendChild(itemDiv);
+                    });
+                }
+
+                // 4. Buscar Volume de Emails na Semana
+                const todayChart = new Date();
+                const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+                const labels = [];
+                const dataCounts = [];
+                const promises = [];
+
+                for (let i = 6; i >= 0; i--) {
+                    const targetDate = new Date();
+                    targetDate.setDate(todayChart.getDate() - i);
+
+                    labels.push(daysOfWeek[targetDate.getDay()]);
+
+                    const startDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), 0, 0, 0).toISOString();
+                    const endDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), 23, 59, 59).toISOString();
+
+                    promises.push(callGraphAPI(`/me/messages?$filter=receivedDateTime ge ${startDay} and receivedDateTime le ${endDay}&$count=true`, accessToken));
+                }
+
+                const results = await Promise.all(promises);
+                results.forEach(res => {
+                    const count = res['@odata.count'] || (res.value ? res.value.length : 0);
+                    dataCounts.push(count);
+                });
+
+                if (window.emailsChart) {
+                    window.emailsChart.data.labels = labels;
+                    window.emailsChart.data.datasets[0].data = dataCounts;
+                    window.emailsChart.update();
+                }
+
+            } catch (err) {
+                console.error("Erro ao buscar dados do Microsoft Graph: ", err);
+            }
+        }
+
+
+        // ==========================================
         // Clima em Tempo Real (API Open-Meteo)
         // ==========================================
         async function fetchWeather() {
@@ -802,22 +1191,22 @@
                 const lat = -22.9064;
                 const lon = -43.1822;
                 const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America%2FSao_Paulo`);
-                
+
                 if (response.ok) {
                     const data = await response.json();
                     const temp = Math.round(data.current.temperature_2m);
                     const code = data.current.weather_code;
-                    
+
                     let icon = '☀️';
                     let desc = 'Ensolarado';
-                    
+
                     if (code === 1 || code === 2) { icon = '⛅'; desc = 'Parcialmente nublado'; }
                     else if (code === 3) { icon = '☁️'; desc = 'Nublado'; }
                     else if (code >= 45 && code <= 48) { icon = '🌫️'; desc = 'Neblina'; }
                     else if (code >= 51 && code <= 67) { icon = '🌧️'; desc = 'Chuva'; }
                     else if (code >= 71 && code <= 77) { icon = '❄️'; desc = 'Neve'; }
                     else if (code >= 95) { icon = '⛈️'; desc = 'Tempestade'; }
-                    
+
                     document.getElementById('weatherTemp').innerText = `${temp}°C`;
                     document.getElementById('weatherIcon').innerText = icon;
                     document.getElementById('weatherDesc').innerText = desc;
@@ -836,16 +1225,16 @@
         // ==========================================
         function updateDateTime() {
             const now = new Date();
-            
+
             const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             let dateStr = now.toLocaleDateString('pt-BR', optionsDate);
             dateStr = dateStr.charAt(0).toUpperCase() + dateStr.slice(1); // Capitalizar
-            
+
             const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-            
+
             const dateEl = document.getElementById('currentDate');
             const timeEl = document.getElementById('currentTime');
-            
+
             if (dateEl) dateEl.innerText = dateStr;
             if (timeEl) timeEl.innerText = timeStr;
         }
@@ -855,4 +1244,5 @@
         setInterval(updateDateTime, 1000);
     </script>
 </body>
+
 </html>
